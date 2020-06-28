@@ -42,7 +42,8 @@ app.post('/equal', (req,res) => {
     }
 
     newCalc.result = result;
+    historyArray[historyArray.length-1].result=result;
 
     res.send(newCalc);
-    console.log('in GET /equal', newCalc);
+    console.log('in GET /equal', newCalc, historyArray);
   })

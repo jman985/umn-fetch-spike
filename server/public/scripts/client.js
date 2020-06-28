@@ -63,7 +63,7 @@ function getResult(){
             el.append(`<h2 id="result">${response.result} <h2>`)
 
             $("#listHistory").append(`<li> ${response.number1} ${response.operator} 
-            ${response.number2} = ${response.result} <li>`)
+            ${response.number2} = ${response.result} </li>`)
             
             $("#num1").val('');
             $("#num2").val('');
@@ -143,4 +143,10 @@ function handleClickClear(event) {
     event.preventDefault();
   
     console.log('clear clicked');
+
+    $("#num1").val('');
+    $("#num2").val('');
+
+    $('#result').remove();
+
 }

@@ -22,6 +22,8 @@ function handleReady() {
 function handleClickEquals(event){
     event.preventDefault();
 
+    $('#result').remove();
+
     let num1 = $("#num1").val();
     let num2 = $("#num2").val();
     
@@ -36,6 +38,7 @@ function handleClickEquals(event){
             } 
        }).then( function(response) {
           console.log('Subtracted successfully',response);
+
             getResult();
             // getHistory();
         })
@@ -57,10 +60,14 @@ function getResult(){
           let el = $('#displayResult')
     
             console.log(response)
-            el.append(`<h2>${response.result} <h2>`)
+            el.append(`<h2 id="result">${response.result} <h2>`)
+
+            $("#listHistory").append(`<li> ${response.number1} ${response.operator} 
+            ${response.number2} = ${response.result} <li>`)
             
+            $("#num1").val('');
+            $("#num2").val('');
         
-     
         }).catch( function(error) {
           alert('Sorry, bad things happened. Try again later!');
           console.log('Error on GET', error)

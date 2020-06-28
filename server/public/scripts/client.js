@@ -3,31 +3,41 @@ console.log('JS is ready');
 
 $(document).ready(handleReady);
 
+let operation;
+
 function handleReady() {
   console.log("jquery is loaded!")
 
-  $("#plus-btn").on('click',handleClickAdd)
-  $("#minus-btn").on('click',handleClickSubtract)
-  $("#times-btn").on('click',handleClickMultiply)
-  $("#divide-btn").on('click',handleClickDivide)
+    $("#plus-btn").on('click',handleClickAdd);
+    $("#minus-btn").on('click',handleClickSubtract);
+    $("#times-btn").on('click',handleClickMultiply);
+    $("#divide-btn").on('click',handleClickDivide);
+
+    $("#equals-btn").on('click',handleClickEquals);
+    $("#clear-btn").on('click',handleClickClear);
+
 }
 
-function handleClickAdd(event) {
+
+function handleClickEquals(event){
     event.preventDefault();
 
     let num1 = $("#num1").val();
     let num2 = $("#num2").val();
-  
-    console.log('add clicked');
+    
+    console.log('equals clicked', num1,operation,num2);
 
     $.ajax({
         type: 'POST',
-        url: '/add',
-        data: { number1: num1  ,
-                number2: num2 }     
+        url: '/equal',
+        data: { number1: num1 ,
+                number2: num2,
+                operator: operation
+            } 
        }).then( function(response) {
-          console.log('Added successfully',response);
-          getHistory();
+          console.log('Subtracted successfully',response);
+            getResult();
+            // getHistory();
         })
         .catch( function(error) {
           alert('Sorry, bad things happened. Try again later!');
@@ -36,78 +46,94 @@ function handleClickAdd(event) {
     }
 
 
+//get result from the server
+function getResult(){
+    $.ajax({
+        type: 'GET',
+        url: '/equal'
+      })
+        .then( function(response) {
+          console.log('Got result', response);
+          let el = $('#displayResult')
+    
+            console.log(response)
+            el.append(`<h2>${response.result} <h2>`)
+            
+        
+     
+        }).catch( function(error) {
+          alert('Sorry, bad things happened. Try again later!');
+          console.log('Error on GET', error)
+        })
+    
+}
+
+
+//add button handler
+function handleClickAdd(event) {
+    event.preventDefault();
+    console.log('add clicked');
+
+    operation= '+';
+    }
+
+//subtract button handler
 function handleClickSubtract(event) {
     event.preventDefault();
 
-    let num1 = $("#num1").val();
-    let num2 = $("#num2").val();
-  
     console.log('subtract clicked');
 
-    $.ajax({
-        type: 'POST',
-        url: '/subtract',
-        data: { number1: num1  ,
-                number2: num2 }     
-       }).then( function(response) {
-          console.log('Subtracted successfully',response);
-          getHistory();
-        })
-        .catch( function(error) {
-          alert('Sorry, bad things happened. Try again later!');
-          console.log('Error on POST', error)
-        })
+    operation='-';
     }
 
-
+//multiply button handler
 function handleClickMultiply(event) {
     event.preventDefault();
 
-    let num1 = $("#num1").val();
-    let num2 = $("#num2").val();
-  
     console.log('multiply clicked');
 
-  $.ajax({
-        type: 'POST',
-        url: '/multiply',
-        data: { number1: num1  ,
-                number2: num2 }     
-       }).then( function(response) {
-          console.log('Multiplied successfully',response);
-          getHistory();
-        })
-        .catch( function(error) {
-          alert('Sorry, bad things happened. Try again later!');
-          console.log('Error on POST', error)
-        })
+    operation='*';
+  
     }
 
-
+//divide button handler
 function handleClickDivide(event) {
     event.preventDefault();
-
-    let num1 = $("#num1").val();
-    let num2 = $("#num2").val();
   
     console.log('divide clicked');
 
-    $.ajax({
-        type: 'POST',
-        url: '/divide',
-        data: { number1: num1  ,
-                number2: num2 }     
-       }).then( function(response) {
-          console.log('Divided successfully',response);
-          getHistory();
-        })
-        .catch( function(error) {
-          alert('Sorry, bad things happened. Try again later!');
-          console.log('Error on POST', error)
-        })
-    }
+    operation='/';
+}
 
 
-function getHistory() {
+
+// function getHistory() {
+//     $.ajax({
+//         type: 'GET',
+//         url: '/history'
+//       })
+//         .then( function(response) {
+//           console.log('Got guesses', response);
+//           let el = $('#guessesOut')
     
+//             console.log(response)
+//             el.append(`<li>${response.JoshResult}.  Josh guessed ${response.JoshGuess} <br> 
+//             ${response.AceResult}.  Ace guessed ${response.AceGuess}</li>`)
+            
+//             if(response.JoshResult==="Josh's guess was RIGHT ON!"){
+//               alert("JOSH WON!");
+//             }else if(response.AceResult==="Ace's guess was RIGHT ON!"){
+//               alert("Ace WON!");
+//             }
+     
+//         }).catch( function(error) {
+//           alert('Sorry, bad things happened. Try again later!');
+//           console.log('Error on GET', error)
+//         })
+// }
+
+function handleClickClear(event) {
+    event.preventDefault();
+  
+    console.log('clear clicked');
 }

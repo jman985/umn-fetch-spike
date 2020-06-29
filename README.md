@@ -7,13 +7,13 @@
 ![FORKS](https://img.shields.io/github/forks/scottbromander/the_marketplace.svg?style=social)
 
 # PROJECT NAME
-Server Side Calculator
+JQuery Server Side Calculator
 
 ## Description
 
-_Duration: 2 Day Project
+Duration: 2 Day Project
 
-This project seeks to create a basic calculator application that takes two inputs, a mathematical operation, and displays the result of the calculation.  The user may input one number into each input field, then select one mathematical operation - addition (+), subtraction (-), multiplication (*), or division (/).  Clicking the "equals (=)" button submits the calculation and displays the result.  A history of past calculations is displayed below the current result.
+This project seeks to create a basic calculator application that takes in two inputs, a mathematical operation, and displays the results of the desired calculation.  The user may input one number into each input field and select one mathematical operation - addition (+), subtraction (-), multiplication (*), or division (/).  Clicking the "equals (=)" button submits the calculation and displays the result.  A history of past calculations is then displayed below the current result.
 
 
 ### Prerequisites
@@ -31,10 +31,10 @@ This project seeks to create a basic calculator application that takes two input
 ## Usage
 
 1. Type a number into the left input box.
-2. Click an operation (+,-,*, or /) for the desired calculation.
+2. Click a mathematical operator (+,-,*, or /) for the desired calculation.
 3. Type another number into the right input box.
 4. Click the "equals (=)" button to submit the desired calculation and see the result.
-5. Click the "C" button to clear the input fields and the last result.
+5. Click the "C" button to clear the input fields and the latest result.
 
 ## Built With
 

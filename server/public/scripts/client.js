@@ -16,10 +16,10 @@ function handleReady() {
     $("#equals-btn").on('click',handleClickEquals);
     $("#clear-btn").on('click',handleClickClear);
 
-    getHistory();
-}
+    getHistory(); //get calculation history when page loads
+};
 
-
+//handle equals click and send inputs to the server
 function handleClickEquals(event){
     event.preventDefault();
 
@@ -29,10 +29,10 @@ function handleClickEquals(event){
     let num2 = $("#num2").val();
     
     if (num1==undefined ||num2==undefined||operation==undefined) {
-      alert("ERROR. PLEASE TRY AGAIN.")
+      alert("ERROR. PLEASE TRY AGAIN.");
       return false;
           
-    }
+    };
 
     console.log('equals clicked', num1,operation,num2);
 
@@ -44,7 +44,7 @@ function handleClickEquals(event){
                 operator: operation
             } 
        }).then( function(response) {
-          console.log('Subtracted successfully',response);
+          console.log('Computed successfully',response);
 
             getResult();
         })
@@ -52,7 +52,7 @@ function handleClickEquals(event){
           alert('Sorry, bad things happened. Try again later!');
           console.log('Error on POST', error)
         })
-    }
+    };
 
 
 //get result from the server
@@ -63,13 +63,13 @@ function getResult(){
       })
         .then( function(response) {
           console.log('Got result', response);
-          let el = $('#displayResult')
+          let el = $('#displayResult');
     
-            console.log(response)
-            el.append(`<h2 id="result">${response.result} <h2>`)
+            console.log(response);
+            el.append(`<h2 id="result">${response.result} <h2>`);
 
             $("#listHistory").append(`<li> ${response.number1} ${response.operator} 
-            ${response.number2} = ${response.result} </li>`)
+            ${response.number2} = ${response.result} </li>`);
             
             $("#num1").val('');
             $("#num2").val('');
@@ -79,7 +79,7 @@ function getResult(){
           console.log('Error on GET', error)
         })
     
-}
+};
 
 
 //add button handler
@@ -88,7 +88,7 @@ function handleClickAdd(event) {
     console.log('add clicked');
 
     operation= '+';
-    }
+    };
 
 //subtract button handler
 function handleClickSubtract(event) {
@@ -97,7 +97,7 @@ function handleClickSubtract(event) {
     console.log('subtract clicked');
 
     operation='-';
-    }
+    };
 
 //multiply button handler
 function handleClickMultiply(event) {
@@ -107,7 +107,7 @@ function handleClickMultiply(event) {
 
     operation='*';
   
-    }
+    };
 
 //divide button handler
 function handleClickDivide(event) {
@@ -116,10 +116,10 @@ function handleClickDivide(event) {
     console.log('divide clicked');
 
     operation='/';
-}
+};
 
 
-
+//get calculation history for when page loads
 function getHistory() {
     $.ajax({
         type: 'GET',
@@ -131,15 +131,16 @@ function getHistory() {
           for (let i=0; i<response.length; i++){
 
             $("#listHistory").append(`<li> ${response[i].number1} ${response[i].operator} 
-            ${response[i].number2} = ${response[i].result} </li>`)
-        }
+            ${response[i].number2} = ${response[i].result} </li>`);
+        };
      
         }).catch( function(error) {
           alert('Sorry, bad things happened. Try again later!');
           console.log('Error on GET', error)
         })
-}
+};
 
+//clear inputs and result
 function handleClickClear(event) {
     event.preventDefault();
   
@@ -150,4 +151,4 @@ function handleClickClear(event) {
 
     $('#result').remove();
 
-}
+};

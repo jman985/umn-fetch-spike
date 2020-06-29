@@ -16,6 +16,7 @@ function handleReady() {
     $("#equals-btn").on('click',handleClickEquals);
     $("#clear-btn").on('click',handleClickClear);
 
+    getHistory();
 }
 
 
@@ -23,10 +24,16 @@ function handleClickEquals(event){
     event.preventDefault();
 
     $('#result').remove();
-
+   
     let num1 = $("#num1").val();
     let num2 = $("#num2").val();
     
+    if (num1==undefined ||num2==undefined||operation==undefined) {
+      alert("ERROR. PLEASE TRY AGAIN.")
+      return false;
+          
+    }
+
     console.log('equals clicked', num1,operation,num2);
 
     $.ajax({
@@ -40,7 +47,6 @@ function handleClickEquals(event){
           console.log('Subtracted successfully',response);
 
             getResult();
-            // getHistory();
         })
         .catch( function(error) {
           alert('Sorry, bad things happened. Try again later!');
@@ -114,30 +120,25 @@ function handleClickDivide(event) {
 
 
 
-// function getHistory() {
-//     $.ajax({
-//         type: 'GET',
-//         url: '/history'
-//       })
-//         .then( function(response) {
-//           console.log('Got guesses', response);
-//           let el = $('#guessesOut')
-    
-//             console.log(response)
-//             el.append(`<li>${response.JoshResult}.  Josh guessed ${response.JoshGuess} <br> 
-//             ${response.AceResult}.  Ace guessed ${response.AceGuess}</li>`)
-            
-//             if(response.JoshResult==="Josh's guess was RIGHT ON!"){
-//               alert("JOSH WON!");
-//             }else if(response.AceResult==="Ace's guess was RIGHT ON!"){
-//               alert("Ace WON!");
-//             }
+function getHistory() {
+    $.ajax({
+        type: 'GET',
+        url: '/history'
+      })
+        .then( function(response) {
+          console.log('Got history', response);
+          
+          for (let i=0; i<response.length; i++){
+
+            $("#listHistory").append(`<li> ${response[i].number1} ${response[i].operator} 
+            ${response[i].number2} = ${response[i].result} </li>`)
+        }
      
-//         }).catch( function(error) {
-//           alert('Sorry, bad things happened. Try again later!');
-//           console.log('Error on GET', error)
-//         })
-// }
+        }).catch( function(error) {
+          alert('Sorry, bad things happened. Try again later!');
+          console.log('Error on GET', error)
+        })
+}
 
 function handleClickClear(event) {
     event.preventDefault();

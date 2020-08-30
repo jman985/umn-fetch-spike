@@ -4,10 +4,10 @@ const pool = require( './pool' );
 
 
 // GET
-router.get( '/:title', ( req, res )=>{
+router.get( '/', ( req, res )=>{
     console.log( 'in router /events GET',req.params.title );
     /// - query: SELECT * FROM "eventlist" - ///
-    let queryString = `SELECT "tweet_html" FROM "tweets" ORDER BY date DESC`;
+    let queryString = `SELECT "tweet_html" FROM "tweets" WHERE "publication_id"=253;`;
     pool.query( queryString ).then( ( result )=>{
         // success
         res.send( result.rows );

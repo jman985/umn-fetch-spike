@@ -14,12 +14,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Red Skin, White Masks</title>
     <link rel="stylesheet" type="text/css" href="styles/style3.css"/>
+    <script src="vendors/jquery.min.js"></script>
+
     <script src="scripts/script3.js" charset="utf-8"></script>
     <script src="x-frame-bypass.js" type="module"></script>
     <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
-    <script src="vendors/jquery.min.js"></script>
     <script src="scripts/client.js"></script>
     <link rel="stylesheet" href="styles/styles.css">
+    <script type='text/javascript'>
+      let tweets=[];
+
+      $( document ).ready( function(){
+        console.log( 'JQ' );
+        console.log( 'in GET tweets' );
+        $.ajax({
+              type: 'GET',
+              url: '/tweets'
+          }).then( function( response ){
+              console.log( 'back from GET:', response );
+              let el = $( '#viewTweets' );
+              el.empty();
+              tweets = response;
+              for (let i = 0; i < response.length; i++) {
+                el.append(response[i].tweet_html)
+                                                }
+                                              })
+                                            })
+    
+    </script>
 
     <script>window.twttr = (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0],
@@ -1139,35 +1161,14 @@
                                         <script src='vendors/jquery.min.js'></script>
                                       </head>
 
-                                  <body id='viewTweets'>
+                                  <body>
                                     
 
                                     <!--<blockquote class='twitter-tweet' data-width='250'><p lang='en' dir='ltr'>Just finished Red Skin, White Masks. Hella good collection you got there!</p>&mdash; Malaise Yarrow (@vapourmalaise) 
                                       <a href='https://twitter.com/vapourmalaise/status/1298894391763861504?ref_src=twsrc%5Etfw'>August 27, 2020</a></blockquote>
                                       <script async src='https://platform.twitter.com/widgets.js' charset='utf-8'></script>
                                       <br>-->
-                                      <script type='text/javascript'>
-                                        let tweets=[];
-
-                                        $( document ).ready( function(){
-                                          console.log( 'JQ' );
-                                          console.log( 'in GET tweets' );
-                                          $.ajax({
-                                                type: 'GET',
-                                                url: '/tweets'
-                                            }).then( function( response ){
-                                                console.log( 'back from GET:', response );
-                                                let el = $( '#viewTweets' );
-                                                el.empty();
-                                                tweets = response;
-                                                for (let i = 0; i < response.length; i++) {
-                                                  el.append(response[i].tweet_html)
-                                                                                  }
-                                                                                })
-                                                                              })
                                       
-                                        </script>
-                                      <div>
                                       <blockquote class='twitter-tweet'>
                                         <p lang='en' dir='ltr'>Book - Red Skin, White Masks: Rejecting the Colonial Politics of Recognition <a href='https://t.co/vUGJWXw8dd'>https://t.co/vUGJWXw8dd</a>
                                       <a href='https://twitter.com/hashtag/SocialJustice?src=hash&amp;ref_src=twsrc%5Etfw'>#SocialJustice</a> 
@@ -1188,12 +1189,10 @@
                                     width = "175px" height="225px" is="x-frame-bypass" title="UMN Press Tweets">
                                     
                                     
-                                    </iframe>
-
-                                    
-
-
-     </div>
+                                </iframe>
+                                 
+                                                                                
+                    </div>
                             </div>
 
      

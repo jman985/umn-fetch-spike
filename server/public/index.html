@@ -5,69 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
     <title>Server Side Calculator</title>
-    <script src="vendors/jquery.min.js"></script>
-    <script src="scripts/client.js"></script>
-    <link rel="stylesheet" href="styles/styles.css">
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <!-- <script src="vendors/jquery.min.js"></script> -->
+    <!-- <script src="scripts/client.js"></script> -->
+    <!-- <link rel="stylesheet" href="styles/styles.css"> -->
 </head>
 <body>
+   
     <h1>Tweet Embed Spike</h1>
-    <!-- <form>
-        <input id ="num1" type="number">
-        <button id ="plus-btn" value="+">+</button>
-        <button id ="minus-btn" value="-">-</button>
-        <button id ="times-btn" value="*">*</button>
-        <button id ="divide-btn" value="/">/</button>
-        <input id="num2" type="number">
-        <button id ="equals-btn">=</button>
-        <button id ="clear-btn">C</button>
-        <br><br>
-      </form>
-      <div id="displayResult">
+                                         
+    <script>
+      document.getElementById("demo").innerHTML = 
+      "The full URL of this page is:<br>" + window.location.href;
+    </script>
+                               
+<script defer type='text/javascript'>
+//pull out url into variable to be easily swapped out
 
-      </div>
-      <h4>History</h4>
-        <ul id="listHistory">
+    let url= 'http://localhost:3000/#/books/'
+            fetch('/api/tweets/1',
+              { method: 'GET',
+                mode: 'no-cors',
+                                }
+              ).then( response => response.json()
 
-        </ul>      
-</div> -->
+              ).then(data=> {
+                  console.log('tweet ids:',data);
 
+                  for(let i=0;i<data.length;i++){
+                      console.log('tweet id', data[i].tweet_id);
+                      
+                      fetch('/api/tweets/1/' + data[i].tweet_id,
+                      { method: 'GET',
+                      mode: 'no-cors',
+                                      }
 
+                      ).then(response=> response.text()
+                      
+                      ).then(html => {console.log('this is the tweet html', html)
                                       
+                          let tweetContainer = document.getElementById('viewTweets');
+                          console.log(tweetContainer);
 
-                                  <div id='viewTweets'>
-                                    
+                          let tweetDiv = document.createElement('div');
+                          console.log(html);
+                            
+                        // let tweetScript = '<script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"><\/script>'
+                            
+                        // console.log(tweetScript);
+                            //   let tweetHTML =  tweetScript + html     
+                          tweetDiv.innerHTML = html;
+                        //   console.log(tweetHTML);
+                          tweetContainer.append(tweetDiv);
 
-                                    <!--<blockquote class='twitter-tweet' data-width='250'><p lang='en' dir='ltr'>Just finished Red Skin, White Masks. Hella good collection you got there!</p>&mdash; Malaise Yarrow (@vapourmalaise) 
-                                      <a href='https://twitter.com/vapourmalaise/status/1298894391763861504?ref_src=twsrc%5Etfw'>August 27, 2020</a></blockquote>
-                                      <script async src='https://platform.twitter.com/widgets.js' charset='utf-8'></script>
-                                      <br>-->
-                                      <script type='text/javascript'>
-                                        let tweets=[];
+                      })
 
-                                        $( document ).ready( function(){
-                                          console.log( 'JQ' );
-                                          console.log( 'in GET tweets' );
-                                          $.ajax({
-                                                type: 'GET',
-                                                url: '/tweets'
-                                            }).then( function( response ){
-                                                console.log( 'back from GET:', response );
-                                                let el = $( '#viewTweets' );
-                                                el.empty();
-                                                tweets = response;
-                                                for (let i = 0; i < response.length; i++) {
-                                                  el.append(response[i].tweet_html)
-                                                                                  }
-                                                                                })
-                                                                              })
-                                      
-                                        </script>
+                  }}
+                      ).catch((error) => {console.error('Error fetching embed html', error);}
 
-                                      
-                                    </div>
-                                 
-                                    
-                                    
-                                    
+              ).catch( error => console.error('Error fetching tweet ID', error) )
+            
+              </script>
+
+<!-- <iframe src="index.html" title="W3Schools Free Online Web Tutorials"></iframe> -->
+<div id='viewTweets'>
+    </div>
 </body>
 </html>

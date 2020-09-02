@@ -2,14 +2,14 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000;
-const tweetRouter = require('./routes/tweet.router')
+const widgetRouter = require('./routes/widget.router')
 
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('server/public'));
 
 // ROUTES
-app.use('/tweets', tweetRouter)
+app.use('/api/tweets', widgetRouter)
 
 // Start listening for requests on a specific port
 app.listen(PORT, () => {

@@ -3,6 +3,7 @@ background-color: chartreuse;
 margin-left: 50px;
 }
 
-#viewTweets{
-max-width: 220px;
+#viewTweets, .twitter-tweet-rendered .twitter-tweet{
+max-width: 100px !important;
 }
+

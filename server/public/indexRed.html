@@ -15,8 +15,9 @@
     <title>Red Skin, White Masks</title>
     <link rel="stylesheet" type="text/css" href="styles/style3.css"/>
     <script src="vendors/jquery.min.js"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-    <script src="scripts/script3.js" charset="utf-8"></script>
+    <!-- <script src="scripts/script3.js" charset="utf-8"></script> -->
     <script src="x-frame-bypass.js" type="module"></script>
     <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
     <script src="scripts/client.js"></script>
@@ -1191,7 +1192,88 @@
                                     
                                 </iframe>
                                  
-                                                                                
+                                <div id='viewTweets'>
+                                        </div>
+
+      <script type='text/javascript'>
+
+                     fetch('/api/tweets/10',
+                      { method: 'GET',
+                        mode: 'no-cors',
+                                        }
+                                        ).then( response => response.json()
+                    
+                      
+                    ).then(data=> {
+                        console.log('tweet ids:',data);
+                        
+                        for(let i=0;i<data.length;i++){
+                          console.log('tweet id', data[i].tweet_id);
+
+                          
+                            fetch('/api/tweets/2/' + data[i].tweet_id,
+                            { method: 'GET',
+                            mode: 'no-cors',
+                                            }
+
+                            ).then(response=> response.text()
+                            
+                            ).then(html => {console.log('this is the tweet html', html)
+                                            
+                                // let scriptElement = document.createElement( "script" );
+                                // scriptElement.src = "https://platform.twitter.com/widgets.js";
+
+                                // scriptElement.async = true;
+
+                        // window.twttr = (function(d, s, id) {
+                        //   let js, fjs = d.getElementsByTagName(s)[0],
+                        //     t = window.twttr || {};
+                        //   if (d.getElementById(id)) return t;
+                        //   js = d.createElement(s);
+                        //   js.id = id;
+                        //   js.src = "https://platform.twitter.com/widgets.js";
+                        //   fjs.parentNode.insertBefore(js, fjs);
+
+                        //   t._e = [];
+                        //   t.ready = function(f) {
+                        //     t._e.push(f);
+                        //   };
+
+                        //   return t;
+                        // }(document, "script", "twitter-wjs"))
+
+                              let tweetContainer = document.getElementById('viewTweets');
+                              console.log(tweetContainer);
+
+                              let tweetDiv = document.createElement('div');
+                              console.log(html);
+
+                              tweetDiv.innerHTML = html;
+                              // console.log(tweetLi);
+                              // document.body.appendChild( scriptElement );
+
+                              // scriptElement.addEventListener(
+                              //     "load",
+                              //     function() {
+                              //         console.log( 'Successfully loaded twitter widget script using (addEventListener).' );
+                              //         // document.body.appendChild( scriptElement );
+
+                              //         tweetContainer.append(tweetDiv);
+                              //   })
+
+                                tweetContainer.append(tweetDiv);
+                                twttr.widgets.load(
+                                document.getElementById("viewTweets")
+                    );
+                      })
+                    }})
+                      
+
+                    .catch((error) => {console.error('Error fetching embed html', error);}
+
+              ).catch( error => console.error('Error fetching tweet ID', error) )
+            
+              </script>                                            
                     </div>
                             </div>
 

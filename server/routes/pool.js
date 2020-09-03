@@ -2,7 +2,7 @@
 const pg = require( 'pg' );
 // globals
 const pool = new pg.Pool({
-    database: 'umn_press',
+    database: 'umn_app',
     host: 'localhost',
     port: 5432,
     max: 15,

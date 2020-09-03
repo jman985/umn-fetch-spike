@@ -2,3 +2,7 @@
 background-color: chartreuse;
 margin-left: 50px;
 }
+
+#viewTweets{
+max-width: 220px;
+}

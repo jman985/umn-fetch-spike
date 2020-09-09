@@ -1,6 +1,11 @@
+
+
 console.log( 'js' );
+
 let events=[];
 const weekday = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'] //assign weekday values to use for getDay()
+
+
 
 //onready function for when page loads
 $( document ).ready( function(){
